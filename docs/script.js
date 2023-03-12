@@ -40,11 +40,55 @@ function animate() {
     if (currentVrm) {
         // Update model to render physics
         currentVrm.update(clock.getDelta());
+        const Blendshape = currentVrm.blendShapeProxy;
+        console.log(Blendshape);
+        const unityInstance=window.unityInstance;
+        console.log(unityInstance);
+        unityInstance.SendMessage('fyp','TestReact',ReactUnityBlendshapes(Blendshape));
     }
     renderer.render(scene, orbitCamera);
+    
 }
 animate();
 
+//Pass Blendshape values to Unity
+function ReactUnityBlendshapes(Blendshape){
+    var Neutral= Blendshape._blendShapeGroups.Neutral.weight;
+    var Fun = Blendshape._blendShapeGroups.Fun.weight;
+    var Sorrow = Blendshape._blendShapeGroups.Sorrow.weight;
+    var Angry = Blendshape._blendShapeGroups.Angry.weight;
+    var Joy = Blendshape._blendShapeGroups.Joy.weight;
+    var Surprised = Blendshape._blendShapeGroups.Surprised.weight;
+    var A = Blendshape._blendShapeGroups.A.weight;
+    var I = Blendshape._blendShapeGroups.I.weight;
+    var U = Blendshape._blendShapeGroups.U.weight;
+    var E = Blendshape._blendShapeGroups.E.weight;
+    var O = Blendshape._blendShapeGroups.O.weight;
+    var Close = Blendshape._blendShapeGroups.Blink.weight;
+    var Close_R = Blendshape._blendShapeGroups.Blink_R.weight;
+    var Close_L = Blendshape._blendShapeGroups.Blink_L.weight;
+
+    //console.log(Neutral,Fun,Sorrow,Angry,Joy,Surprised,A,E,I,O,U,Close,Close_R,Close_L);
+    var json={
+        "Neutral": Neutral,
+        "Fun": Fun,
+        "Sorrow":Sorrow,
+        "Angry":Angry,
+        "Joy": Joy,
+        "Surprised": Surprised,
+        "A":A,
+        "I":I,
+        "U":U,
+        "E":E,
+        "O":O,
+        "Close":Close,
+        "Close_R":Close_R,
+        "Close_L":Close_L,
+    }
+    var myArray = [Neutral, Fun, Sorrow, Angry,Joy, Surprised, A,I,U,E,O, Close, Close_R, Close_L];
+    return(myArray);
+
+}
 /* VRM CHARACTER SETUP */
 
 // Import Character VRM
@@ -53,7 +97,7 @@ loader.crossOrigin = "anonymous";
 // Import model from URL, add your own model here
 //Default model: https://cdn.glitch.com/29e07830-2317-4b15-a044-135e73c7f840%2FAshtra.vrm?v=1630342336981
 loader.load(
-    '/Users/zetachua/Documents/GitHub/kalidokit/docs/model/fyp/fyp.vrm',
+    'https://github.com/zetachua/kalidokit/raw/main/docs/model/fyp/fyp.vrm',
 
     (gltf) => {
         THREE.VRMUtils.removeUnnecessaryJoints(gltf.scene);
@@ -62,6 +106,7 @@ loader.load(
             scene.add(vrm.scene);
             currentVrm = vrm;
             currentVrm.scene.rotation.y = Math.PI; // Rotate model 180deg to face camera
+
         });
     },
 
@@ -222,6 +267,7 @@ const animateVRM = (vrm, results) => {
         rigRotation("LeftLittleProximal", riggedLeftHand.LeftLittleProximal);
         rigRotation("LeftLittleIntermediate", riggedLeftHand.LeftLittleIntermediate);
         rigRotation("LeftLittleDistal", riggedLeftHand.LeftLittleDistal);
+
     }
     if (rightHandLandmarks) {
         riggedRightHand = Kalidokit.Hand.solve(rightHandLandmarks, "Right");
@@ -246,10 +292,10 @@ const animateVRM = (vrm, results) => {
         rigRotation("RightLittleProximal", riggedRightHand.RightLittleProximal);
         rigRotation("RightLittleIntermediate", riggedRightHand.RightLittleIntermediate);
         rigRotation("RightLittleDistal", riggedRightHand.RightLittleDistal);
+        //.log(riggedFace, riggedRightHand, riggedLeftHand, riggedPose);
     }
 };
-
-/* SETUP MEDIAPIPE HOLISTIC INSTANCE */
+ 
 let videoElement = document.querySelector(".input_video"),
     guideCanvas = document.querySelector("canvas.guides");
 
@@ -329,3 +375,4 @@ const camera = new Camera(videoElement, {
     height: 480,
 });
 camera.start();
+

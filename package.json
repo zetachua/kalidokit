@@ -27,8 +27,8 @@
         "@types/lodash.clonedeep": "^4.5.6",
         "@typescript-eslint/eslint-plugin": "^5.9.0",
         "@typescript-eslint/parser": "^5.9.0",
-        "lodash.clonedeep": "^4.5.0",
         "eslint": "^8.6.0",
+        "lodash.clonedeep": "^4.5.0",
         "prettier": "^2.4.1",
         "rimraf": "^3.0.2",
         "rollup-plugin-friendly-type-imports": "^1.0.1",
@@ -60,5 +60,10 @@
     ],
     "author": "yeemachine",
     "license": "MIT",
-    "year": "2020-2021"
+    "year": "2020-2021",
+    "dependencies": {
+        "bvh-parser": "^1.0.0",
+        "cors": "^2.8.5",
+        "react-unity-webgl": "^9.4.0"
+    }
 }
