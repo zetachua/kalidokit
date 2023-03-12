@@ -42,9 +42,11 @@ function animate() {
         currentVrm.update(clock.getDelta());
         const Blendshape = currentVrm.blendShapeProxy;
         console.log(Blendshape);
+        window.Blendshape=Blendshape;
         const unityInstance=window.unityInstance;
-        console.log(unityInstance);
-        unityInstance.SendMessage('fyp','TestReact',ReactUnityBlendshapes(Blendshape));
+        console.log('unityInstance',unityInstance);
+        unityInstance.SendMessage('MotionCapture','TestReact',ReactUnityBlendshapes(Blendshape));
+        console.log('sent');
     }
     renderer.render(scene, orbitCamera);
     
@@ -70,24 +72,25 @@ function ReactUnityBlendshapes(Blendshape){
 
     //console.log(Neutral,Fun,Sorrow,Angry,Joy,Surprised,A,E,I,O,U,Close,Close_R,Close_L);
     var json={
-        "Neutral": Neutral,
-        "Fun": Fun,
-        "Sorrow":Sorrow,
-        "Angry":Angry,
-        "Joy": Joy,
-        "Surprised": Surprised,
-        "A":A,
-        "I":I,
-        "U":U,
-        "E":E,
-        "O":O,
-        "Close":Close,
-        "Close_R":Close_R,
-        "Close_L":Close_L,
+        "Neutral": Neutral*10,
+        "Fun": Fun*10,
+        "Sorrow":Sorrow*10,
+        "Angry":Angry*10,
+        "Joy": Joy*10,
+        "Surprised": Surprised*10,
+        "A":A*100,
+        "I":I*100,
+        "U":U*100,
+        "E":E*100,
+        "O":O*100,
+        "Close":Close*100,
+        "Close_R":Close_R*10,
+        "Close_L":Close_L*10,
     }
-    var myArray = [Neutral, Fun, Sorrow, Angry,Joy, Surprised, A,I,U,E,O, Close, Close_R, Close_L];
-    return(myArray);
-
+    //var myArray = [Math.round(Neutral*10000)/10000, Math.round(Fun*10000)/10000, Math.round(Sorrow*10000)/10000, Math.round(Angry*10000)/10000,Math.round(Joy*10000)/10000, Math.round(Surprised*10000)/10000, Math.round(A*10000)/10000,Math.round(I*10000)/10000,Math.round(U*10000)/10000,Math.round(E*10000)/10000,Math.round(O*10000)/10000, Math.round(Close*10000)/10000, Math.round(Close_R*10000)/10000, Math.round(Close_L*10000)/10000];
+    //return(Math.round(Neutral*10000)/10000, Math.round(Fun*10000)/10000, Math.round(Sorrow*10000)/10000, Math.round(Angry*10000)/10000,Math.round(Joy*10000)/10000, Math.round(Surprised*10000)/10000, Math.round(A*10000)/10000,Math.round(I*10000)/10000,Math.round(U*10000)/10000,Math.round(E*10000)/10000,Math.round(O*10000)/10000, Math.round(Close*10000)/10000, Math.round(Close_R*10000)/10000, Math.round(Close_L*10000)/10000);
+    console.log('json.string'+JSON.stringify(json));
+    return(JSON.stringify(json));
 }
 /* VRM CHARACTER SETUP */
 

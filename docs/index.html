@@ -98,7 +98,7 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <button onclick="unityInstance.SendMessage('fyp','TestReact',ReactUnityBlendshapes(Blendshape))"></button>
+        <!-- <button onclick="unityInstance.SendMessage('fyp','TestReact',ReactUnityBlendshapes(window.Blendshape))"></button> -->
       </div>
     </div>
     <script>
@@ -145,7 +145,7 @@
       //   showBanner: unityShowBanner, 
       // };
 
-      var buildUrl = "webgl-test3/Build";
+      var buildUrl = "webgl-test4/Build";
       var loaderUrl = buildUrl + "/webgl-test3.loader.js";
       var config = {
         dataUrl: buildUrl + "/webgl-test3.data.unityweb",
@@ -198,8 +198,9 @@
           loadingBar.style.display = "none";
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
-          };
+          };            
           window.unityInstance=unityInstance;
+
         }).catch((message) => {
           alert(message);
         });
